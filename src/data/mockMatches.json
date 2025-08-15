@@ -1,0 +1,222 @@
+[
+  {
+    "matchId": "001",
+    "date": "2025-06-01",
+    "map": "Ascent",
+    "agent": "Reyna",
+    "kills": 23,
+    "deaths": 14,
+    "assists": 3,
+    "headshotPercentage": 32.1,
+    "win": true
+  },
+  {
+    "matchId": "002",
+    "date": "2025-06-02",
+    "map": "Bind",
+    "agent": "Sova",
+    "kills": 15,
+    "deaths": 10,
+    "assists": 8,
+    "headshotPercentage": 28.4,
+    "win": true
+  },
+  {
+    "matchId": "003",
+    "date": "2025-06-03",
+    "map": "Haven",
+    "agent": "Jett",
+    "kills": 27,
+    "deaths": 16,
+    "assists": 2,
+    "headshotPercentage": 41.2,
+    "win": false
+  },
+  {
+    "matchId": "004",
+    "date": "2025-06-04",
+    "map": "Lotus",
+    "agent": "Omen",
+    "kills": 12,
+    "deaths": 12,
+    "assists": 5,
+    "headshotPercentage": 18.3,
+    "win": true
+  },
+  {
+    "matchId": "005",
+    "date": "2025-06-05",
+    "map": "Icebox",
+    "agent": "Killjoy",
+    "kills": 18,
+    "deaths": 14,
+    "assists": 10,
+    "headshotPercentage": 30.9,
+    "win": false
+  },
+  {
+    "matchId": "006",
+    "date": "2025-06-06",
+    "map": "Pearl",
+    "agent": "Skye",
+    "kills": 16,
+    "deaths": 11,
+    "assists": 9,
+    "headshotPercentage": 25.0,
+    "win": true
+  },
+  {
+    "matchId": "007",
+    "date": "2025-06-07",
+    "map": "Sunset",
+    "agent": "Phoenix",
+    "kills": 21,
+    "deaths": 17,
+    "assists": 4,
+    "headshotPercentage": 29.5,
+    "win": true
+  },
+  {
+    "matchId": "008",
+    "date": "2025-06-08",
+    "map": "Fracture",
+    "agent": "Neon",
+    "kills": 20,
+    "deaths": 19,
+    "assists": 2,
+    "headshotPercentage": 33.3,
+    "win": false
+  },
+  {
+    "matchId": "009",
+    "date": "2025-06-09",
+    "map": "Breeze",
+    "agent": "Viper",
+    "kills": 14,
+    "deaths": 10,
+    "assists": 7,
+    "headshotPercentage": 27.0,
+    "win": true
+  },
+  {
+    "matchId": "010",
+    "date": "2025-06-10",
+    "map": "Ascent",
+    "agent": "Reyna",
+    "kills": 26,
+    "deaths": 13,
+    "assists": 2,
+    "headshotPercentage": 39.7,
+    "win": true
+  },
+  {
+    "matchId": "011",
+    "date": "2025-06-11",
+    "map": "Bind",
+    "agent": "Sage",
+    "kills": 9,
+    "deaths": 11,
+    "assists": 14,
+    "headshotPercentage": 15.0,
+    "win": false
+  },
+  {
+    "matchId": "012",
+    "date": "2025-06-12",
+    "map": "Haven",
+    "agent": "Chamber",
+    "kills": 22,
+    "deaths": 15,
+    "assists": 3,
+    "headshotPercentage": 35.5,
+    "win": true
+  },
+  {
+    "matchId": "013",
+    "date": "2025-06-13",
+    "map": "Icebox",
+    "agent": "Fade",
+    "kills": 19,
+    "deaths": 17,
+    "assists": 5,
+    "headshotPercentage": 26.2,
+    "win": false
+  },
+  {
+    "matchId": "014",
+    "date": "2025-06-14",
+    "map": "Pearl",
+    "agent": "Cypher",
+    "kills": 12,
+    "deaths": 9,
+    "assists": 7,
+    "headshotPercentage": 19.1,
+    "win": true
+  },
+  {
+    "matchId": "015",
+    "date": "2025-06-15",
+    "map": "Fracture",
+    "agent": "Raze",
+    "kills": 25,
+    "deaths": 20,
+    "assists": 3,
+    "headshotPercentage": 40.2,
+    "win": false
+  },
+  {
+    "matchId": "016",
+    "date": "2025-06-16",
+    "map": "Sunset",
+    "agent": "Gekko",
+    "kills": 17,
+    "deaths": 14,
+    "assists": 11,
+    "headshotPercentage": 23.8,
+    "win": true
+  },
+  {
+    "matchId": "017",
+    "date": "2025-06-17",
+    "map": "Breeze",
+    "agent": "Deadlock",
+    "kills": 13,
+    "deaths": 12,
+    "assists": 6,
+    "headshotPercentage": 22.5,
+    "win": true
+  },
+  {
+    "matchId": "018",
+    "date": "2025-06-18",
+    "map": "Lotus",
+    "agent": "Yoru",
+    "kills": 20,
+    "deaths": 18,
+    "assists": 4,
+    "headshotPercentage": 30.1,
+    "win": false
+  },
+  {
+    "matchId": "019",
+    "date": "2025-06-19",
+    "map": "Bind",
+    "agent": "Harbor",
+    "kills": 11,
+    "deaths": 10,
+    "assists": 12,
+    "headshotPercentage": 17.3,
+    "win": true
+  },
+  {
+    "matchId": "020",
+    "date": "2025-06-20",
+    "map": "Haven",
+    "agent": "Brimstone",
+    "kills": 16,
+    "deaths": 11,
+    "assists": 7,
+    "headshotPercentage": 28.9,
+    "win": true
+  }
+]

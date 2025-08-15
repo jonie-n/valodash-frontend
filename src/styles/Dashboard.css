@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
+.app-container {
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  background-image: url('../assets/bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+}
+
+.app-title {
+  font-size: 2.25rem;
+  font-family: 'Pixelify Sans', sans-serif;
+  font-weight: 700;
+  color: #6bb2ed;
+  margin-bottom: 1.5rem;
+}
+
+.logout-button {
+  font-size: 1.3rem;
+  color: #6bb2ed;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  color: #5aa5e3;
+}

@@ -1,0 +1,68 @@
+.match-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.match-card__left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.match-card__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.match-card__agent {
+  margin: 0;
+  font-weight: 550;
+  font-size: 1.4rem;
+}
+
+.match-card__badge {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+.match-card__badge--win { background: #dcfce7; color: #166534; }
+.match-card__badge--loss { background: #fee2e2; color: #991b1b; }
+
+.match-card__text {
+  margin: 0;
+  color: #374151;
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+
+.match-card__date {
+  margin: 0;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.match-card__right {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.match-card__agent-icon {
+  width: 80px;
+  height: 80px;
+  image-rendering: pixelated;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 0 rgba(0,0,0,0.05));
+}
