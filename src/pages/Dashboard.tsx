@@ -14,6 +14,7 @@ export default function Dashboard() {
   const [selectedMap, setSelectedMap] = useState("");
   const [showWinsOnly, setShowWinsOnly] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
+  const API = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -29,7 +30,7 @@ export default function Dashboard() {
   useEffect(() => {
     if (!uid) return;
 
-    fetch(`http://localhost:3001/matches/${uid}`)
+    fetch(`${API}/matches/${uid}`)
       .then((res) => {
         if (!res.ok) throw new Error("Data not found");
         return res.json();

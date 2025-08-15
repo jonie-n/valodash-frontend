@@ -13,6 +13,7 @@ export default function LoginPage() {
   const [pw, setPw] = useState("");
   const [isSignup, setIsSignup] = useState(false);
   const [error, setError] = useState("");
+  const API = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ export default function LoginPage() {
       const uid = userCredential.user.uid;
       console.log("Firebase UID:", uid);
 
-      await fetch("http://localhost:3001/seed", {
+      await fetch(`${API}/seed`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ uid }),
