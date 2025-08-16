@@ -1,46 +1,56 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../firebase";
-import React from "react";
-import "../styles/LoginPage.css";
 import toast from "react-hot-toast";
+import "../styles/LoginPage.css";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [isSignup, setIsSignup] = useState(false);
-  const [error, setError] = useState("");
-  const API = import.meta.env.VITE_API_URL;
+  const [submitting, setSubmitting] = useState(false);
+  const API = import.meta.env.VITE_API_URL as string | undefined;
+
+  if (!API) {
+    console.warn("VITE_API_URL is missing. Add it to .env.local / Vercel envs.");
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    if (!API) {
+      toast.error("API base URL missing. Check VITE_API_URL.");
+      return;
+    }
+    setSubmitting(true);
 
     try {
-      let userCredential;
-
-      if (isSignup) {
-        userCredential = await createUserWithEmailAndPassword(auth, email, pw);
-      } else {
-        userCredential = await signInWithEmailAndPassword(auth, email, pw);
-      }
+      const userCredential = isSignup
+        ? await createUserWithEmailAndPassword(auth, email, pw)
+        : await signInWithEmailAndPassword(auth, email, pw);
 
       const uid = userCredential.user.uid;
       console.log("Firebase UID:", uid);
 
-      await fetch(`${API}/seed`, {
+      const resp = await fetch(`${API}/seed`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ uid }),
       });
 
-      toast.success("Logged in and mock data generated!");
+      if (!resp.ok) {
+        const text = await resp.text().catch(() => "");
+        throw new Error(`Seed failed: ${resp.status} ${text}`);
+      }
+
+      toast.success(isSignup ? "Account created!" : "Logged in!");
     } catch (err: any) {
-      setError(err.message);
+      console.error(err);
       toast.error("Authentication failed");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -53,18 +63,24 @@ export default function LoginPage() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
           />
           <input
             placeholder="Password"
             type="password"
             value={pw}
             onChange={(e) => setPw(e.target.value)}
+            autoComplete="current-password"
           />
-          <button type="submit">
-            {isSignup ? "Create Account" : "Login"}
+          <button type="submit" disabled={submitting}>
+            {submitting ? "Please wait..." : isSignup ? "Create Account" : "Login"}
           </button>
-          {error && <p className="error-text">{error}</p>}
-          <p onClick={() => setIsSignup(!isSignup)} className="toggle-auth">
+
+          <p
+            onClick={() => setIsSignup(!isSignup)}
+            className="toggle-auth"
+            role="button"
+          >
             {isSignup
               ? "Already have an account? Log in"
               : "No account? Sign up"}

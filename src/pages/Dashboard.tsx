@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import MatchCard from "../components/MatchCard";
 import FilterBar from "../components/FilterBar";
 import SummaryBar from "../components/SummaryBar";
@@ -14,51 +14,82 @@ export default function Dashboard() {
   const [selectedMap, setSelectedMap] = useState("");
   const [showWinsOnly, setShowWinsOnly] = useState(false);
   const [uid, setUid] = useState<string | null>(null);
-  const API = import.meta.env.VITE_API_URL;
+  const [loading, setLoading] = useState(false);
+  const API = import.meta.env.VITE_API_URL as string | undefined;
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUid(user.uid);
-      } else {
-        toast.error("User not authenticated.");
-      }
+    const unsub = onAuthStateChanged(auth, (user) => {
+      if (user) setUid(user.uid);
+      else toast.error("User not authenticated.");
     });
-    return () => unsubscribe();
+    return () => unsub();
   }, []);
 
   useEffect(() => {
     if (!uid) return;
+    if (!API) {
+      toast.error("API base URL missing. Check VITE_API_URL.");
+      return;
+    }
 
-    fetch(`${API}/matches/${uid}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Data not found");
-        return res.json();
-      })
-      .then((data) => setMatches(data.matches || []))
-      .catch(() => toast.error("Failed to load match data"));
-  }, [uid]);
+    let cancelled = false;
+    const load = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`${API}/matches/${uid}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (!cancelled) setMatches(data.matches || []);
+      } catch (e) {
+        // quick retry (smoother UX on Render cold starts)
+        try {
+          await new Promise((r) => setTimeout(r, 1000));
+          const res2 = await fetch(`${API}/matches/${uid}`);
+          if (!res2.ok) throw new Error(`HTTP ${res2.status}`);
+          const data2 = await res2.json();
+          if (!cancelled) setMatches(data2.matches || []);
+        } catch {
+          if (!cancelled) toast.error("Failed to load match data");
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
 
-  const allAgents = [...new Set(matches.map((m) => m.agent))];
-  const allMaps = [...new Set(matches.map((m) => m.map))];
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [uid, API]);
 
-  const filtered = matches.filter((m) => {
-    return (
-      (selectedAgent === "" || m.agent === selectedAgent) &&
-      (selectedMap === "" || m.map === selectedMap) &&
-      (!showWinsOnly || m.win)
-    );
-  });
+  const allAgents = useMemo(
+    () => [...new Set(matches.map((m) => m.agent))],
+    [matches]
+  );
+  const allMaps = useMemo(
+    () => [...new Set(matches.map((m) => m.map))],
+    [matches]
+  );
+
+  const filtered = useMemo(
+    () =>
+      matches.filter(
+        (m) =>
+          (selectedAgent === "" || m.agent === selectedAgent) &&
+          (selectedMap === "" || m.map === selectedMap) &&
+          (!showWinsOnly || m.win)
+      ),
+    [matches, selectedAgent, selectedMap, showWinsOnly]
+  );
 
   const handleLogout = async () => {
     const confirmed = window.confirm("Are you sure you want to log out?");
-    if (confirmed) {
-      try {
-        await signOut(auth);
-        toast.success("Logged out successfully");
-      } catch {
-        toast.error("Failed to log out");
-      }
+    if (!confirmed) return;
+    try {
+      await signOut(auth);
+      toast.success("Logged out successfully");
+    } catch {
+      toast.error("Failed to log out");
     }
   };
 
@@ -87,9 +118,15 @@ export default function Dashboard() {
 
       <SummaryBar matches={filtered} />
 
-      {filtered.map((match) => (
+      {loading && <p className="mt-4 text-center">Loading matches…</p>}
+
+      {!loading && filtered.map((match) => (
         <MatchCard key={match.matchId} match={match} />
       ))}
+
+      {!loading && filtered.length === 0 && (
+        <p className="mt-6 text-center opacity-80">No matches to show.</p>
+      )}
     </div>
   );
 }
